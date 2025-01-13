@@ -1,0 +1,53 @@
+Tutorial on how to Obtain the Parameters for Different Configurations of the M13 nanogenerator
+
+This tutorial provides step-by-step instructions to guide users on how to:
+1- Set up a simulation for the M13 nanogenerator in different configurations.
+2- Run Finite Element Analysis (FEA) to obtain the resonance frequency and voltage output.
+3- Integrate these parameters into the black box model used in this software tool.
+While we are using COMSOL Multiphysics in this tutorial, this process can be replicated in other FEA tools such as ANSYS, Abaqus, or OpenFOAM.
+
+Step 1: 	Setting Up the FEA Simulation in COMSOL Multiphysics:
+	1.1: 	Open COMSOL Multiphysics and Create a New Model:
+		Select “Model Wizard” —> 3D Component.
+		Choose “Solid Mechanics” under the Physics tab.
+		Add “Electrostatics” to account for piezoelectric coupling.
+
+	1.2: 	Define the Geometry of the M13 nanogenerator:
+		Create a desired geometry to represent the nanogenerator.
+
+	1.3: 	Assign Material Properties:
+		Use the following material properties from our previous publication (azarnoush2023) to model the M13 nanogenerator:
+		Elastic Compliance Matrix [S] (in Pa⁻¹):
+		[S] = [[0.2439, -0.0927, -0.2533, 0, 0, 0],
+		[-0.0927, 0.2439, -0.2533, 0, 0, 0],
+		[-0.0927, -0.0927, 0.6667, 0, 0, 0],
+		[0, 0, 0, 0.6494, 0, 0],
+		[0, 0, 0, 0, 0.6494, 0],
+		[0, 0, 0, 0, 0, 0.3366]] x 10⁻⁹
+
+		Piezoelectric Coupling Matrix [d] (in V⁻¹):
+		[d] = [[6.5, 12.1, 0, 0, 0, 0],
+		[12.17, 6.5, 0, 0, 0, 0],
+		[12.1, 12.1, 13.2, 0, 0, 0]] x 10⁻¹²
+
+		Dielectric Constant (in F/m):
+		ε = 22.577 x 10⁻¹² F/m
+
+		Density (ρ):
+		ρ = 833.88 kg/m³
+
+	1.4:	Apply Boundary Conditions:
+		Fix the boundaries conditions based on the desired configuration.
+		Apply a mechanical force or ultrasonic wave stimulation to simulate the input.
+
+Step 2: 	Run the analysis:
+		Choose Eigenfrequency Study to calculate the natural resonance frequencies.
+		Once you’ve identified the resonance frequencies from the Eigenfrequency Study, perform a Frequency Domain Study to calculate the output voltage for different ultrasonic inputs.
+
+Step 2: 	Updating the Black Box Model in the Software Tool
+		Export the voltage output data from COMSOL as a table.
+		To integrate the new values into your black box model update the Voltage Lookup Table (nano_bubble/M13_Voltage_V3.xlsx) with the new data. 
+
+
+References:
+Azarnoush A, Dambri OA, Karatop EU, Makrakis D, Cherkaoui S. Simulation and Performance Evaluation of a Bio-Inspired Nanogenerator for Medical Applications. IEEE Trans Biomed Eng. 2023 Sep;70(9):2616-2623. doi: 10.1109/TBME.2023.3260200. Epub 2023 Aug 30. PMID: 37030752.
